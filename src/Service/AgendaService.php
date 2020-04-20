@@ -60,7 +60,12 @@ class AgendaService
                     continue;
                 }
                 if ($key === "SUMMARY") {
-                    $value = $this->changeEventDescription($value);
+                    $value = $this->changeEventSummary($value);
+                }
+                if ($key === "DESCRIPTION") {
+                    $organizer = $this->getOrganizerName($value);
+                    $value = preg_replace("/AURION\\\\n/", "", $value);
+                    $parsedCalendar .= "ORGANIZER;CN=\"" . $organizer . "\"\n";
                 }
                 $parsedCalendar .= $key . ":" . $value . "\n";
             }
@@ -70,7 +75,7 @@ class AgendaService
         return $parsedCalendar;
     }
 
-    private function changeEventDescription(string $eventName): string
+    private function changeEventSummary(string $eventName): string
     {
         $eventName = explode(":", $eventName);
         $eventName[0] = $this->formatEventName($eventName[0]);
@@ -82,5 +87,15 @@ class AgendaService
         $search = array_keys(self::CLASSES);
         $replace = array_values(self::CLASSES);
         return str_replace($search, $replace, $name);
+    }
+
+    private function getOrganizerName(string $description): string
+    {
+        preg_match("/AURION\\\\n[A-Z .]*\\\\n/", $description, $matches);
+        if (count($matches) === 0) {
+            return "";
+        }
+        $organizer = $matches[0];
+        return preg_replace("/AURION\\\\n|\\\\n/", "", $organizer);
     }
 }
