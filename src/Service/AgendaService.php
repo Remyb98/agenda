@@ -37,7 +37,8 @@ class AgendaService
     public function getParsedCalendar(): string
     {
         $calendar = new ICal($this->getLink());
-        return $this->getRawCalendar($calendar->cal);
+        $rawCalendar = $this->getRawCalendar($calendar->cal);
+        return str_replace(["\r\n", "\r", "\n"], "\r\n", $rawCalendar);
     }
 
     private function getLink(): string
@@ -63,9 +64,7 @@ class AgendaService
                     $value = $this->changeEventSummary($value);
                 }
                 if ($key === "DESCRIPTION") {
-                    $organizer = $this->getOrganizerName($value);
-                    $value = preg_replace("/AURION\\\\n/", "", $value);
-                    $parsedCalendar .= "ORGANIZER;CN=\"" . $organizer . "\"\n";
+                    $value = $this->formatDescription($value);
                 }
                 $parsedCalendar .= $key . ":" . $value . "\n";
             }
@@ -89,13 +88,9 @@ class AgendaService
         return str_replace($search, $replace, $name);
     }
 
-    private function getOrganizerName(string $description): string
+    private function formatDescription(string $description): string
     {
-        preg_match("/AURION\\\\n[A-Z .]*\\\\n/", $description, $matches);
-        if (count($matches) === 0) {
-            return "";
-        }
-        $organizer = $matches[0];
-        return preg_replace("/AURION\\\\n|\\\\n/", "", $organizer);
+        $desc = preg_replace("/AURION\\\\n/", "", $description);
+        return preg_replace("/\)\\\\n/", " from https://agenda.remybarberet.fr)\n", $desc);
     }
 }
