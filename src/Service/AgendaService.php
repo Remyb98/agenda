@@ -46,14 +46,14 @@ class AgendaService
         return str_replace(["\r\n", "\r", "\n"], "\r\n", $rawCalendar);
     }
 
-    private function getLink(): string
+    public function getLink(): string
     {
         $groups = implode(",", self::GROUPS);
         $parsedUri = str_replace("{}", $groups, $this->uri);
         return $this->url . $parsedUri;
     }
 
-    private function getRawAgenda(array $calendar): string
+    public function getRawAgenda(array $calendar): string
     {
         $parsedCalendar = "BEGIN:VCALENDAR\n";
         foreach ($calendar["VCALENDAR"] as $key => $value) {
@@ -79,21 +79,21 @@ class AgendaService
         return $parsedCalendar;
     }
 
-    private function changeEventSummary(string $eventName): string
+    public function changeEventSummary(string $eventName): string
     {
         $eventName = explode(":", $eventName);
         $eventName[0] = $this->formatEventName($eventName[0]);
         return $eventName[0] . " - " . $eventName[1];
     }
 
-    private function formatEventName(string $name): string
+    public function formatEventName(string $name): string
     {
         $search = array_keys(self::CLASSES);
         $replace = array_values(self::CLASSES);
         return str_replace($search, $replace, $name);
     }
 
-    private function formatDescription(string $description): string
+    public function formatDescription(string $description): string
     {
         $desc = preg_replace("/AURION\\\\n/", "", $description);
         return preg_replace("/\)\\\\n/", " from https://agenda.remybarberet.fr)\n", $desc);
