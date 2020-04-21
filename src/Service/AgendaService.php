@@ -39,10 +39,10 @@ class AgendaService
         return file_get_contents($this->getLink());
     }
 
-    public function getParsedCalendar(): string
+    public function getParsedAgenda(): string
     {
         $calendar = new ICal($this->getLink());
-        $rawCalendar = $this->getRawCalendar($calendar->cal);
+        $rawCalendar = $this->getRawAgenda($calendar->cal);
         return str_replace(["\r\n", "\r", "\n"], "\r\n", $rawCalendar);
     }
 
@@ -53,7 +53,7 @@ class AgendaService
         return $this->url . $parsedUri;
     }
 
-    private function getRawCalendar(array $calendar): string
+    private function getRawAgenda(array $calendar): string
     {
         $parsedCalendar = "BEGIN:VCALENDAR\n";
         foreach ($calendar["VCALENDAR"] as $key => $value) {

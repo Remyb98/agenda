@@ -20,7 +20,7 @@ class MainController extends AbstractController
     public function index(): Response
     {
         return new JsonResponse([
-            'routes' => [
+            "routes" => [
                 "original" => "/original",
                 "raw" => "/raw",
                 "parsed" => "/agenda"
@@ -36,7 +36,7 @@ class MainController extends AbstractController
      */
     public function parsedAgenda(AgendaService $service): Response
     {
-        $calendar = $service->getParsedCalendar();
+        $calendar = $service->getParsedAgenda();
         $response = new Response($calendar);
         $disposition = HeaderUtils::makeDisposition(
             HeaderUtils::DISPOSITION_ATTACHMENT,
@@ -67,7 +67,7 @@ class MainController extends AbstractController
      */
     public function rawAgenda(AgendaService $service): Response
     {
-        $calendar = $service->getParsedCalendar();
+        $calendar = $service->getParsedAgenda();
         return new Response($calendar);
     }
 }
