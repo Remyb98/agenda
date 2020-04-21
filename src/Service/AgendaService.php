@@ -34,6 +34,11 @@ class AgendaService
         $this->uri = "?resources={}&projectId=6&calType=ical&nbWeeks=52";
     }
 
+    public function getOriginalAgenda(): string
+    {
+        return file_get_contents($this->getLink());
+    }
+
     public function getParsedCalendar(): string
     {
         $calendar = new ICal($this->getLink());

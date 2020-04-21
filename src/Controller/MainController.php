@@ -30,9 +30,21 @@ class MainController extends AbstractController
     }
 
     /**
+     * Return the ICS file before be parsed.
+     * @Route("/original", name="original")
+     * @param AgendaService $service
+     * @return Response
+     */
+    public function beforeParsedAgenda(AgendaService $service)
+    {
+        $calendar = $service->getOriginalAgenda();
+        return new Response($calendar);
+    }
+
+    /**
      * Return an ICS file in text format.
      * Useful for test and debugging.
-     * @Route("/test", name="test")
+     * @Route("/raw", name="raw")
      * @param AgendaService $service
      * @return Response
      */
