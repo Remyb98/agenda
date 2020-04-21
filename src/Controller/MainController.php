@@ -6,18 +6,35 @@ namespace App\Controller;
 use App\Service\AgendaService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\HeaderUtils;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
     /**
-     * Return an ICS file.
+     * Show available routes
      * @Route("/", name="index")
+     * @return Response
+     */
+    public function index(): Response
+    {
+        return new JsonResponse([
+            'routes' => [
+                "original" => "/original",
+                "raw" => "/raw",
+                "parsed" => "/agenda"
+            ]
+        ]);
+    }
+
+    /**
+     * Return an ICS file.
+     * @Route("/agenda", name="agenda")
      * @param AgendaService $service
      * @return Response
      */
-    public function index(AgendaService $service)
+    public function parsedAgenda(AgendaService $service): Response
     {
         $calendar = $service->getParsedCalendar();
         $response = new Response($calendar);
@@ -35,7 +52,7 @@ class MainController extends AbstractController
      * @param AgendaService $service
      * @return Response
      */
-    public function beforeParsedAgenda(AgendaService $service)
+    public function originalAgenda(AgendaService $service): Response
     {
         $calendar = $service->getOriginalAgenda();
         return new Response($calendar);
@@ -48,7 +65,7 @@ class MainController extends AbstractController
      * @param AgendaService $service
      * @return Response
      */
-    public function test(AgendaService $service)
+    public function rawAgenda(AgendaService $service): Response
     {
         $calendar = $service->getParsedCalendar();
         return new Response($calendar);
