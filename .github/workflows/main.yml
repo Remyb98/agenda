@@ -23,7 +23,7 @@ jobs:
           php bin/phpunit
 
   lint:
-    name: Execute lint (phpcs)
+    name: Execute lint
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
