@@ -13,6 +13,43 @@ class AgendaServiceTest extends TestCase
         return new AgendaService();
     }
 
+    public function testAddEvents()
+    {
+        $service = $this->getService();
+        $fakeEvent = [[
+            "DTSTAMP" => "DTSTAMP",
+            "DTSTART" => "DTSTART",
+            "DTEND" => "DTEND",
+            "SUMMARY" => "Summary:Test",
+            "LOCATION" => "Location",
+            "DESCRIPTION" => "Description",
+            "UID" => "UID",
+        ]];
+        $formattedEvent = "BEGIN:VEVENT\n";
+        $formattedEvent .= "DTSTAMP:DTSTAMP\n";
+        $formattedEvent .= "DTSTART:DTSTART\n";
+        $formattedEvent .= "DTEND:DTEND\n";
+        $formattedEvent .= "SUMMARY:Summary - Test\n";
+        $formattedEvent .= "LOCATION:Location\n";
+        $formattedEvent .= "DESCRIPTION:Description\n";
+        $formattedEvent .= "UID:UID\n";
+        $formattedEvent .= "END:VEVENT\n";
+        $this->assertEquals($formattedEvent, $service->addEvents($fakeEvent));
+    }
+
+    public function testAddEventsEmpty()
+    {
+        $service = $this->getService();
+        $this->assertEquals("", $service->addEvents([]));
+    }
+
+    public function testGetGroups()
+    {
+        $service = $this->getService();
+        $this->assertEquals(["3172", "6467"], $service->getGroups("3172,6467"));
+        $this->assertEquals($service::GROUPS, $service->getGroups("all"));
+    }
+
     public function testChangeEventSummary()
     {
         $service = $this->getService();

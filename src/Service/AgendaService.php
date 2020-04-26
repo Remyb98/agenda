@@ -3,6 +3,7 @@
 
 namespace App\Service;
 
+use Exception;
 use ICal\ICal;
 
 class AgendaService
@@ -11,7 +12,7 @@ class AgendaService
 
     private string $uri;
 
-    private const GROUPS = [
+    public const GROUPS = [
         "3172", // Groupe 1
         "3472", // Groupe Anglais
         "6467", // Groupe Management
@@ -34,21 +35,21 @@ class AgendaService
         $this->uri = "?resources={}&projectId=6&calType=ical&nbWeeks=52";
     }
 
-    public function getOriginalAgenda(): string
+    public function getOriginalAgenda(string $groups): string
     {
-        return file_get_contents($this->getLink());
+        return file_get_contents($this->getLink($this->getGroups($groups)));
     }
 
-    public function getParsedAgenda(): string
+    public function getParsedAgenda(string $groups): string
     {
-        $calendar = new ICal($this->getLink());
+        $calendar = new ICal($this->getLink($this->getGroups($groups)));
         $rawCalendar = $this->getRawAgenda($calendar->cal);
         return str_replace(["\r\n", "\r", "\n"], "\r\n", $rawCalendar);
     }
 
-    public function getLink(): string
+    public function getLink(array $groupsSelected): string
     {
-        $groups = implode(",", self::GROUPS);
+        $groups = implode(",", $groupsSelected);
         $parsedUri = str_replace("{}", $groups, $this->uri);
         return $this->url . $parsedUri;
     }
@@ -59,8 +60,20 @@ class AgendaService
         foreach ($calendar["VCALENDAR"] as $key => $value) {
             $parsedCalendar .= $key . ":" . $value . "\n";
         }
-        foreach ($calendar["VEVENT"] as $event) {
-            $parsedCalendar .= "BEGIN:VEVENT\n";
+        if (key_exists("VEVENT", $calendar)) {
+            $parsedCalendar .= $this->addEvents($calendar["VEVENT"]);
+        }
+
+        $parsedCalendar .= "END:VCALENDAR\n";
+        return $parsedCalendar;
+    }
+
+    public function addEvents(array $events): string
+    {
+        $parsedEvents = "";
+        // dd($events);
+        foreach ($events as $event) {
+            $parsedEvents .= "BEGIN:VEVENT\n";
             foreach ($event as $key => $value) {
                 if (strpos($key, "array")) {
                     continue;
@@ -71,12 +84,25 @@ class AgendaService
                 if ($key === "DESCRIPTION") {
                     $value = $this->formatDescription($value);
                 }
-                $parsedCalendar .= $key . ":" . $value . "\n";
+                $parsedEvents .= $key . ":" . $value . "\n";
             }
-            $parsedCalendar .= "END:VEVENT\n";
+            $parsedEvents .= "END:VEVENT\n";
         }
-        $parsedCalendar .= "END:VCALENDAR\n";
-        return $parsedCalendar;
+        return $parsedEvents;
+    }
+
+    public function getGroups(string $groups): array
+    {
+        if ($groups === "all") {
+            $groupsArray = self::GROUPS;
+        } else {
+            try {
+                $groupsArray = explode(",", $groups);
+            } catch (Exception $e) {
+                $groupsArray = self::GROUPS;
+            }
+        }
+        return $groupsArray;
     }
 
     public function changeEventSummary(string $eventName): string
@@ -96,6 +122,6 @@ class AgendaService
     public function formatDescription(string $description): string
     {
         $desc = preg_replace("/AURION\\\\n/", "", $description);
-        return preg_replace("/\)\\\\n/", " from https://agenda.remybarberet.fr)\n", $desc);
+        return preg_replace("/\)\\\\n/", " from https://agenda.remybarberet.fr)", $desc);
     }
 }

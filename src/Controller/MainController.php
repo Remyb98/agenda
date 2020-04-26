@@ -7,6 +7,7 @@ use App\Service\AgendaService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,12 +32,13 @@ class MainController extends AbstractController
     /**
      * Return an ICS file.
      * @Route("/agenda", name="agenda")
+     * @param Request $request
      * @param AgendaService $service
      * @return Response
      */
-    public function parsedAgenda(AgendaService $service): Response
+    public function parsedAgenda(Request $request, AgendaService $service): Response
     {
-        $calendar = $service->getParsedAgenda();
+        $calendar = $service->getParsedAgenda($this->getGroups($request));
         $response = new Response($calendar);
         $disposition = HeaderUtils::makeDisposition(
             HeaderUtils::DISPOSITION_ATTACHMENT,
@@ -49,12 +51,13 @@ class MainController extends AbstractController
     /**
      * Return the ICS file before be parsed.
      * @Route("/original", name="original")
+     * @param Request $request
      * @param AgendaService $service
      * @return Response
      */
-    public function originalAgenda(AgendaService $service): Response
+    public function originalAgenda(Request $request, AgendaService $service): Response
     {
-        $calendar = $service->getOriginalAgenda();
+        $calendar = $service->getOriginalAgenda($this->getGroups($request));
         return new Response($calendar);
     }
 
@@ -62,12 +65,19 @@ class MainController extends AbstractController
      * Return an ICS file in text format.
      * Useful for test and debugging.
      * @Route("/raw", name="raw")
+     * @param Request $request
      * @param AgendaService $service
      * @return Response
      */
-    public function rawAgenda(AgendaService $service): Response
+    public function rawAgenda(Request $request, AgendaService $service): Response
     {
-        $calendar = $service->getParsedAgenda();
+        $calendar = $service->getParsedAgenda($this->getGroups($request));
         return new Response($calendar);
+    }
+
+    private function getGroups(Request $request): string
+    {
+        $groups = $request->get("groups");
+        return $groups === null ? "all" : preg_replace("/(?!,)\D/", "", $groups);
     }
 }
