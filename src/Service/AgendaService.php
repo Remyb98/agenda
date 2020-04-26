@@ -19,7 +19,7 @@ class AgendaService
 
     private const CLASSES = [
         "3I-IN10" => "Base de données",
-        "3I-SI4" => "Python Scientifique",
+        "3I-SI4" => "Introduction à l'IA",
         "3A-AN3" => "Skill Consolidation",
         "3A-SH3C" => "Team Building",
         "3I-IN11" => "Infographie 3D",
