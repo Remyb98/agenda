@@ -32,7 +32,7 @@ class AgendaService
     public function __construct()
     {
         $this->url = "https://planif.esiee.fr/jsp/custom/modules/plannings/anonymous_cal.jsp";
-        $this->uri = "?resources={}&projectId=6&calType=ical&nbWeeks=52";
+        $this->uri = "?resources={}&projectId=6&calType=ical&firstDate=2019-08-25&lastDate=2020-08-24";
     }
 
     public function getOriginalAgenda(string $groups): string
