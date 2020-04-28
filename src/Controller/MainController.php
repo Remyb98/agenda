@@ -20,7 +20,7 @@ class MainController extends AbstractController
      */
     public function index(): Response
     {
-        return new JsonResponse([
+        return $this->json([
             "routes" => [
                 "original" => "/original",
                 "raw" => "/raw",
