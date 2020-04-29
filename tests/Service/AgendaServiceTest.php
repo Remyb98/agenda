@@ -101,4 +101,13 @@ class AgendaServiceTest extends TestCase
         $correctDescription = $service->formatDescription($rawDescription);
         $this->assertEquals($correctDescription, $rawDescription);
     }
+
+    public function testFormatDescriptionUnknownNumbers()
+    {
+        $service = $this->getService();
+        $rawDescription = "\\n1584368041800\\n1I\\n2I\\n3I-IN10\\nAURION\\nLEFEBVRE P.\\n(Expor
+ ted :29/04/2020 17:59)\\n";
+        $correctDescription = $service->formatDescription($rawDescription);
+        $this->assertStringNotContainsString("1584368041800", $correctDescription);
+    }
 }

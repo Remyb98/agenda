@@ -122,6 +122,7 @@ class AgendaService
     public function formatDescription(string $description): string
     {
         $desc = preg_replace("/AURION\\\\n/", "", $description);
+        $desc = preg_replace("/\d{10,}\\\\n/", "", $desc);
         return preg_replace("/\)\\\\n/", " from https://agenda.remybarberet.fr)", $desc);
     }
 }
