@@ -71,7 +71,6 @@ class AgendaService
     public function addEvents(array $events): string
     {
         $parsedEvents = "";
-        // dd($events);
         foreach ($events as $event) {
             $parsedEvents .= "BEGIN:VEVENT\n";
             foreach ($event as $key => $value) {
@@ -83,6 +82,9 @@ class AgendaService
                 }
                 if ($key === "DESCRIPTION") {
                     $value = $this->formatDescription($value);
+                }
+                if ($key === "LOCATION") {
+                    $value = $this->formatLocation($value);
                 }
                 $parsedEvents .= $key . ":" . $value . "\n";
             }
@@ -124,5 +126,11 @@ class AgendaService
         $desc = preg_replace("/AURION\\\\n/", "", $description);
         $desc = preg_replace("/\d{10,}\\\\n/", "", $desc);
         return preg_replace("/\)\\\\n/", " from https://agenda.remybarberet.fr)", $desc);
+    }
+
+    public function formatLocation(string $location)
+    {
+        $loc = preg_replace("/\\\\,/", "\, ", $location);
+        return preg_replace("/[V+]/", "", $loc);
     }
 }

@@ -110,4 +110,12 @@ class AgendaServiceTest extends TestCase
         $correctDescription = $service->formatDescription($rawDescription);
         $this->assertStringNotContainsString("1584368041800", $correctDescription);
     }
+
+    public function testFormatLocation()
+    {
+        $service = $this->getService();
+        $rawLocation = "4451\,4307+\,4451-2";
+        $correctLocation = $service->formatLocation($rawLocation);
+        $this->assertEquals("4451\, 4307\, 4451-2", $correctLocation);
+    }
 }
