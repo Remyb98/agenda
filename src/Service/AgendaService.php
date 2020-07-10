@@ -13,9 +13,7 @@ class AgendaService
     private string $uri;
 
     public const GROUPS = [
-        "3172", // Groupe 1
-        "3472", // Groupe Anglais
-        "6467", // Groupe Management
+        "3333", // Groupe 1
     ];
 
     private const CLASSES = [
@@ -27,12 +25,20 @@ class AgendaService
         "3I-IN12" => "Théorie des Graphes",
         "3I-SI2" => "Algèbre Linéaire",
         "3I-SI3" => "Traitement du Signal",
+        "4I-SI1" => "Algèbre avancé",
+        "4I-SI2" => "Machine Learning",
+        "4I-IG3" => "Geometric Modeling",
+        "4I-IN7" => "Enterprise Ressource Planning",
+        "4I-IN3" => "Développement mobile",
+        "4I-IN6" => "Développement web (front)",
+        "4I-RV1" => "Projet encadré",
+        "4A-SH1" => "Finance d'entreprise",
     ];
 
     public function __construct()
     {
         $this->url = "https://planif.esiee.fr/jsp/custom/modules/plannings/anonymous_cal.jsp";
-        $this->uri = "?resources={}&projectId=6&calType=ical&firstDate=2019-08-25&lastDate=2020-08-24";
+        $this->uri = "?resources={}&projectId=8&calType=ical&firstDate=2020-08-25&lastDate=2021-08-24";
     }
 
     public function getOriginalAgenda(string $groups): string
