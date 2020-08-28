@@ -17,22 +17,31 @@ class AgendaService
     ];
 
     private const CLASSES = [
-        "3I-IN10" => "Base de données",
-        "3I-SI4" => "Introduction à l'IA",
         "3A-AN3" => "Skill Consolidation",
         "3A-SH3C" => "Team Building",
+        "3I-SI4" => "Introduction à l'IA",
+        "3I-IN10" => "Base de données",
         "3I-IN11" => "Infographie 3D",
         "3I-IN12" => "Théorie des Graphes",
         "3I-SI2" => "Algèbre Linéaire",
         "3I-SI3" => "Traitement du Signal",
-        "4I-SI1" => "Algèbre avancé",
-        "4I-SI2" => "Machine Learning",
-        "4I-IG3" => "Geometric Modeling",
-        "4I-IN7" => "Enterprise Ressource Planning",
-        "4I-IN3" => "Développement mobile",
-        "4I-IN6" => "Développement web (front)",
-        "4I-RV1" => "Projet encadré",
+
         "4A-SH1" => "Finance d'entreprise",
+        "4I-RV1" => "Projet encadré",
+        "4I-SI1" => "Algèbre avancé",
+        "4I-SI2" => "Machine learning",
+        "4I-SI3" => "Deep learning",
+        "4I-IN1" => "Programmation C++",
+        "4I-IN2" => "Système d'exploitation",
+        "4I-IN3" => "Développement mobile",
+        "4I-IN5" => "Génie logiciel",
+        "4I-IN6" => "Développement web (front)",
+        "4I-IN7" => "Enterprise Ressource Planning",
+        "4I-IG1" => "Computer Graphics",
+        "4I-IG2" => "Traitement et analyse d'images",
+        "4I-IG3" => "Geometric Modeling",
+        "4I-IG4" => "Unity",
+
     ];
 
     public function __construct()
