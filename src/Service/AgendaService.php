@@ -27,6 +27,7 @@ class AgendaService
         "3I-SI3" => "Traitement du Signal",
 
         "4A-SH1" => "Finance d'entreprise",
+        "4A-SH2" => "Simulation de gestion d'entreprise",
         "4I-RV1" => "Projet encadré",
         "4I-SI1" => "Algèbre avancé",
         "4I-SI2" => "Machine learning",
