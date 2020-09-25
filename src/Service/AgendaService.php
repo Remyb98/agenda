@@ -14,6 +14,7 @@ class AgendaService
 
     public const GROUPS = [
         "3333", // Groupe 1
+        "3348", // Anglais D
     ];
 
     private const CLASSES = [
@@ -26,6 +27,7 @@ class AgendaService
         "3I-SI2" => "Algèbre Linéaire",
         "3I-SI3" => "Traitement du Signal",
 
+        "4A-AN2A" => "Anglais",
         "4A-SH1" => "Finance d'entreprise",
         "4A-SH2" => "Simulation de gestion d'entreprise",
         "4I-RV1" => "Projet encadré",
