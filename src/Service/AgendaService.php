@@ -45,6 +45,7 @@ class AgendaService
         "4I-IG3" => "Geometric Modeling",
         "4I-IG4" => "Unity",
 
+        "5I-IN5" => "Réseaux"
     ];
 
     public function __construct()
