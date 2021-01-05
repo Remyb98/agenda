@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          php-version: '7.4'
       - name: Install Composer dependencies & start test
         run: |
           composer install --no-progress --no-suggest --prefer-dist
@@ -32,6 +34,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          php-version: '7.4'
       - name: Install Composer dependencies & start lint
         run: |
           composer install --no-progress --no-suggest --prefer-dist
@@ -46,6 +50,8 @@ jobs:
         php-versions: ['7.4']
     steps:
       - name: Checkout
+        with:
+          php-version: '7.4'
         uses: actions/checkout@v2
       - name: Install Composer dependencies
         run: |
