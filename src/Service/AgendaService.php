@@ -38,7 +38,7 @@ class AgendaService
         "4I-IN1" => "Programmation C++",
         "4I-IN2" => "Système d'exploitation",
         "4I-IN3" => "Développement mobile",
-        "4I-IN3" => "Réseaux",
+        "4I-IN4" => "Réseaux",
         "4I-IN5" => "Génie logiciel",
         "4I-IN6" => "Développement web (front)",
         "4I-IN7" => "Enterprise Ressource Planning",
