@@ -13,8 +13,10 @@ class AgendaService
     private string $uri;
 
     public const GROUPS = [
-        "3333", // Groupe 1
+        "247",  // Classes
+        "3345", // Groupe 1
         "3348", // Anglais D
+        "3776", // MSH
     ];
 
     private const CLASSES = [
