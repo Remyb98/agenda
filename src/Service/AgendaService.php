@@ -13,9 +13,9 @@ class AgendaService
     private string $uri;
 
     public const GROUPS = [
-        "247",  // Classes
-        "3345", // Groupe 1
-        "3348", // Anglais D
+        "247",  // Class
+        "3333", // Groupe 1
+        "3345", // Anglais A
         "3776", // MSH
     ];
 
@@ -29,7 +29,9 @@ class AgendaService
         "3I-SI2" => "Algèbre Linéaire",
         "3I-SI3" => "Traitement du Signal",
 
+        "4A-AN1A" => "Anglais",
         "4A-AN2A" => "Anglais",
+        "4A-AN3" => "Anglais",
         "4A-SH1" => "Finance d'entreprise",
         "4A-SH2" => "Simulation de gestion d'entreprise",
         "4I-RV1" => "Projet encadré",
