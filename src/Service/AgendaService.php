@@ -14,7 +14,8 @@ class AgendaService
 
     public const GROUPS = [
         "3326", // Groupe 1
-        "293", // Anglais A
+        "3328", // E5FI
+        "302",  // Anglais E
     ];
 
     private const CLASSES = [
@@ -53,16 +54,24 @@ class AgendaService
         "5A-AN1B" => "Anglais",
         "5A-AN2" => "Anglais",
         "5A-AN3" => "Anglais",
+        "5A-SH1" => "Bilan de compétences",
         "5A-SH2" => "Création d'entreprise",
         "5I-SI1" => "Statistiques",
         "5I-SI2" => "Probabilités",
+        "5I-SI4" => "Traitement des signaux mécaniques",
         "5I-IN1" => "Algorithmique",
         "5I-IN2" => "Prototypage d'IHM",
         "5I-IN5" => "Réseaux avancés",
+        "5I-IN7" => "IA pour l'image",
         "5I-IN8" => "Usine logicielle",
         "5I-IN9" => "Développement web",
         "5I-IG1" => "Geometric algorithms",
         "5I-IG2" => "Traitement de flux vidéo",
+        "5I-IG4" => "Vision et apprentissage",
+        "5I-SY1" => "Génie logiciel",
+        "5I-SY3" => "Virtualisation",
+        "5I-SY6" => "Cybersécurité",
+        "5I-SY7" => "Les nouveaux métiers de l'imagerie 3D",
     ];
 
     public function __construct()
